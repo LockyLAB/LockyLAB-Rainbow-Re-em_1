@@ -47,20 +47,14 @@ public class PlayerController : MonoBehaviour {
 
 		}
 	void FixedUpdate (){
-		Ray ray = new Ray (transform.position, -transform.up);
-		RaycastHit hit;
-
 		if (Physics.Raycast(origin,-transform.up, 1f, groundLayer)){
 			isGrounded = true;
-			Debug.Log (origin);
 
 		}else {
 			isGrounded = false;
 		}
 	}
-
-
-	}
+}
 
 
 
