@@ -13,4 +13,4 @@ public class Cloud_1Platform : MonoBehaviour {
 			
 		}
 	}
-
+}
