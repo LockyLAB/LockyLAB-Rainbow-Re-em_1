@@ -17,19 +17,26 @@ public class GameController : MonoBehaviour {
 	public int platformCounter = 0;
 	// The depth of each Ground Piece
 	public int depthOfRainbowPiece = 5;
+	public int heightOfPlatform = 10;
 	// How many pieces we want to spawn
 	public int numberOfRainbowPieces = 40;
-	public int numberOfPlatforms = 0;
+	public int numberOfPlatforms = 150;
 	//Player position reference
 	public float playerPositionCounter = 0;
 	public GameObject player;
+	public float maxPlatformPos = 7.5f;
+	public float minPlatformPos = -7f;
 
 
 	// Use this for initialization
 	void Start () {
-		for (int i = 0; i < numberOfRainbowPieces; i++) {
+		for (int i = 0; i <numberOfRainbowPieces; i++) {
 			//Instantiate (groundPiece, Vector3.zero, Quaternion.identity);
 			BuildGround();
+		}
+
+		for (int i = 0; i < numberOfPlatforms; i++) {
+			BuildPlatforms();
 		}
 	}
 
@@ -51,6 +58,17 @@ public class GameController : MonoBehaviour {
 		rainbowPieceCounter++;
 	}
 
+	private void BuildPlatforms(){
+		GameObject platformPieceToPlace = null;
+
+		platformPieceToPlace = platformList [Random.Range (0, platformList.Count)];
+
+		Instantiate (platformPieceToPlace, (Vector3.up * heightOfPlatform * platformCounter) + new Vector3(Random.Range(minPlatformPos, maxPlatformPos),0, 0), Quaternion.identity);
+		platformCounter++;
+
+	}
+
+
 
 	// Update is called once per frame
 	void Update () {
@@ -58,6 +76,7 @@ public class GameController : MonoBehaviour {
 			playerPositionCounter += depthOfRainbowPiece;
 	
 			BuildGround();
+			BuildPlatforms();
 		}
 	}
 }
