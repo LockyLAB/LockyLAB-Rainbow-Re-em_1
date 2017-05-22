@@ -14,6 +14,7 @@ public class StandardPlatform : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		this.transform.position = new Vector3 (3.5f, this.transform.position.y, 1f);
 		StartCoroutine (MovePlatform (startMarker.position));
 	
 	}

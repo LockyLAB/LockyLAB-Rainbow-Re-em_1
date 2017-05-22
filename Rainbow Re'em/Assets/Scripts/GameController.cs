@@ -66,6 +66,7 @@ public class GameController : MonoBehaviour {
 		Instantiate (platformPieceToPlace, (Vector3.up * heightOfPlatform * platformCounter) + new Vector3(Random.Range(minPlatformPos, maxPlatformPos),0, 0), Quaternion.identity);
 		platformCounter++;
 
+
 	}
 
 
