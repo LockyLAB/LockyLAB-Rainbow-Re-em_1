@@ -36,7 +36,7 @@ public class PlayerController : MonoBehaviour {
 
 		float cameraXpos = 0;
 		float cameraYpos = this.transform.position.y + 1.5f;
-		float cameraZpos = -9.5f;
+		float cameraZpos = -9.6f;
 		mainCamera.transform.position = new Vector3 (cameraXpos, cameraYpos, cameraZpos);
 
 		}

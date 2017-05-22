@@ -4,11 +4,12 @@ using UnityEngine;
 
 public class SpringPlatform : MonoBehaviour {
 
-	public float jumpBoost = 150;
+	public float springBoost = 20;
 
-	void OnTriggerEnter(Collider other){
-		if (other.tag == "Player") {
-			other.GetComponent<Rigidbody> ().AddForce (other.transform.up * jumpBoost, ForceMode.Impulse);
+	void OnTriggerEnter (Collider other){
+		if (other.tag == "Player"){
+			other.GetComponent<Rigidbody> ().AddForce (other.transform.up * springBoost, ForceMode.Impulse);
 		}
 	}
-}
+}		
+		
