@@ -4,22 +4,25 @@ using UnityEngine;
 
 public class Cloud_1Platform : MonoBehaviour {
 
-	public float Timer = 1;
+	public float timer = 1;
+
 
 	public LayerMask GroundLayer;
-	private bool isGrounded = false;
+	public bool isGrounded = false;
+
+	void Update(){
+		if (isGrounded == true) {
+			timer -= Time.deltaTime;
+			if (timer < 0) {
+				this.transform.parent.gameObject.SetActive (false);
+			}
+		}
+	}
 
 
-	void OnTriggerEnter (Collider other){
+		void OnTriggerEnter (Collider other){
 		if (other.tag == "Player"){
 			isGrounded = true;
 			}
-		if (isGrounded == true){
-			Timer -= Time.deltaTime;
-			if(Timer == 0){
-				gameObject.SetActive (false);
-			}
-	
-		}
 	}
 }
