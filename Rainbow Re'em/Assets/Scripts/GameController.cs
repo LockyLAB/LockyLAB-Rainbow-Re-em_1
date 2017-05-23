@@ -17,7 +17,7 @@ public class GameController : MonoBehaviour {
 	public int platformCounter = 0;
 	// The depth of each Ground Piece
 	public int heightOfRainbowPiece = 5;
-	public int heightOfPlatform = 10;
+	public float heightOfPlatform = 10;
 	// How many pieces we want to spawn
 	public int numberOfRainbowPieces = 40;
 	public int numberOfPlatforms = 150;

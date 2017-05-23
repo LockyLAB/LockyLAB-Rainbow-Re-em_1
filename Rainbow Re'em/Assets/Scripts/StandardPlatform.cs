@@ -8,6 +8,7 @@ public class StandardPlatform : MonoBehaviour {
 	public Transform endMarker;
 	public float speed = 1.0f;
 
+
 	private float startTime;
 
 
@@ -42,6 +43,10 @@ public class StandardPlatform : MonoBehaviour {
 	}
 		StartCoroutine (MovePlatform (nextPosition));
 
+	}
+
+	void Update (){
+		
 	}
 
 }

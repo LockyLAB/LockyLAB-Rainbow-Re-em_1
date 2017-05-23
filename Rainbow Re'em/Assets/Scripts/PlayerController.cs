@@ -23,9 +23,11 @@ public class PlayerController : MonoBehaviour {
 
 	public GameObject mainCamera;
 
+
 	// Use this for initialization
 	void Start () {
 		timer = Time.time;
+
 	
 
 	}
