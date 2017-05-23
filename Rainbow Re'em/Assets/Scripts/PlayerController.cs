@@ -5,34 +5,41 @@ using XboxCtrlrInput;
 
 public class PlayerController : MonoBehaviour {
 
-	// timberBetweenJumps puts a delay of one second between jumps
+	// TimberBetweenJumps puts a delay of one second between jumps
 	public float timerBetweenJumps = 1f;
 	// XboxController allow the choice of which controller from the front end
 	public XboxController controller;
-	// walkSpeed sets the base value for the player to move at
+	// WalkSpeed sets the base value for the player to move at
 	public float walkSpeed = 2;
-	// jumpSpeed sets the base value for the player to jump at
+	// JumpSpeed sets the base value for the player to jump at
 	public float jumpSpeed = 5;
-
+	// Timer sets the base value for the distance between jumps
 	private float timer;
-
+	// The layer the ground is referenced to
 	public LayerMask groundLayer;
-
-	private bool isGrounded = false;
+	// Checks that the player is on the ground || platform
+	public bool isGrounded = false;
+	// Base position for the Raycast origin
 	private Vector3 origin = new Vector3(0, 0, 0);
-
+	// Public reference for the main camera
 	public GameObject mainCamera;
+	// Checks that the player is in the air 
+	public bool isFalling = false;
+	// Downforce sets the base drag value of the players jump
+	public float downforce;
+	// Public reference for the Rigidbody
+	public Rigidbody rb;
 
-
-	// Use this for initialization
+	//Sets the timer base position
+	//Sets rb as the rigidbody
 	void Start () {
 		timer = Time.time;
-
-	
+		rb = GetComponent <Rigidbody> ();
 
 	}
 	
-	// Update is called once per frame
+
+	// Sets the origin position for the Raycast and enables the camera to follow the player
 	void Update () {
 		origin = transform.position;
 
@@ -42,25 +49,51 @@ public class PlayerController : MonoBehaviour {
 		mainCamera.transform.position = new Vector3 (cameraXpos, cameraYpos, cameraZpos);
 
 		}
-	void FixedUpdate (){
+
+	// Enables the player to jump and adds drag to slow the jump down
+	void Jump(){
+		gameObject.GetComponent<Rigidbody> ().AddForce (transform.up * jumpSpeed);
+
+		if (isFalling == true) {
+			rb.drag = downforce;
+		}
+
+
+		if (Time.time - timer > timerBetweenJumps)
+			timer = Time.time;
+	}
+
+	// Shooting Raycast from the player to check if it is touching an object and stoping it from double jumping
+	void CheckGround(){
 		if (Physics.Raycast(origin,-transform.up, 1f, groundLayer)){
 			isGrounded = true;
 
 		}else {
 			isGrounded = false;
 		}
+	}
 
-		// Get Component grabs the player rigidbody
-		// mulitplies walkSpeed by one and the input of the joystick (either 0 to 1 or 0 to -1)
-		gameObject.GetComponent<Rigidbody> ().AddForce (transform.right * walkSpeed * XCI.GetAxis (XboxAxis.LeftStickX, controller));
+	// Moving the player along the X and Y axis
+	// Mulitplies walkSpeed by one and the input of the joystick (either 0 to 1 or 0 to -1)
+	void MovePlayer(){
+		
 
-		// Upon button A press & player is on the ground, Get Component grabs the player and multiplies current position by jumpSpeed
-		// Time.time keeps a standard break of one second between button presses
-		// canJump only enables the player to jump from a surface 
+		gameObject.GetComponent<Rigidbody> ().AddForce (transform.right * walkSpeed * XCI.GetAxis (XboxAxis.LeftStickX, controller)); 
+
+	}
+
+	// Upon button A press & player is on the ground, funs Jump.
+	void FixedUpdate (){
+		CheckGround ();
+		MovePlayer ();
+
+
 		if ( XCI.GetButtonDown(XboxButton.A, controller ) && isGrounded == true){
-			gameObject.GetComponent<Rigidbody> ().AddForce (transform.up * jumpSpeed);
-			if 		(Time.time - timer > timerBetweenJumps)
-				timer = Time.time;
+			isFalling = true;
+			Jump ();
+
+		} else {
+			isFalling = false;
 		}
 
 	}
