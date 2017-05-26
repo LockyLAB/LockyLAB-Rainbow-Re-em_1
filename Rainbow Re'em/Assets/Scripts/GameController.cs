@@ -32,7 +32,7 @@ public class GameController : MonoBehaviour {
 	void Start () {
 		for (int i = 0; i <numberOfRainbowPieces; i++) {
 			//Instantiate (groundPiece, Vector3.zero, Quaternion.identity);
-			BuildGround();
+			BuildRainbow();
 		}
 
 		for (int i = 0; i < numberOfPlatforms; i++) {
@@ -40,7 +40,7 @@ public class GameController : MonoBehaviour {
 		}
 	}
 
-	private void BuildGround(){
+	private void BuildRainbow(){
 		GameObject rainbowPieceToPlace = null;
 		//int randomPiece = Random.Range (0, 3);
 		//
@@ -76,7 +76,7 @@ public class GameController : MonoBehaviour {
 		if (player.transform.position.y > playerPositionCounter){
 			playerPositionCounter += heightOfRainbowPiece;
 	
-			BuildGround();
+			BuildRainbow();
 			BuildPlatforms();
 		}
 	}

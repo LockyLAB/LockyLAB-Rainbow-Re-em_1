@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StandardPlatform : MonoBehaviour {
-
+public class StandardPlatform2 : MonoBehaviour {
 	//Sets the end position of the platform movement
 	public Transform end;
 	// Sets the speed the platform moves at
@@ -16,9 +15,9 @@ public class StandardPlatform : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		startMarker = new Vector3 (-4.8f, this.transform.position.y, 0f);
+		startMarker = new Vector3 (6f, this.transform.position.y, 0f);
 		endMarker = end.position;
-		
+
 	}
 
 
@@ -26,4 +25,3 @@ public class StandardPlatform : MonoBehaviour {
 		transform.position = Vector3.Lerp (startMarker, endMarker, Mathf.SmoothStep (0f, 0.75f, Mathf.PingPong (Time.time * speed, 1f)));
 	}
 }
-	

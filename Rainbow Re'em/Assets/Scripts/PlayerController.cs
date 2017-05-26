@@ -27,8 +27,17 @@ public class PlayerController : MonoBehaviour {
 	public bool isFalling = false;
 	// Downforce sets the base drag value of the players jump
 	public float downforce;
+	// Weight sets the base value for load onto the player
+	public float weight;
 	// Public reference for the Rigidbody
-	public Rigidbody rb;
+	private Rigidbody rb;
+	//Plaform target for velocity change
+	public GameObject target;
+	//Player initial position
+	public Vector3 prevPos;
+
+
+
 
 	//Sets the timer base position
 	//Sets rb as the rigidbody
@@ -37,7 +46,57 @@ public class PlayerController : MonoBehaviour {
 		rb = GetComponent <Rigidbody> ();
 
 	}
-	
+
+
+	// Enables the player to jump and adds drag to slow the jump down
+	void Jump(){
+		gameObject.GetComponent<Rigidbody> ().AddForce (transform.up * jumpSpeed);
+
+
+		if (isFalling == true) {
+			gameObject.GetComponent<Rigidbody> ().velocity = new Vector3 (0f, -weight, 0f);
+			rb.drag = 0;
+		}
+		rb.drag = downforce;
+		prevPos = transform.position;
+
+
+		if (Time.time - timer > timerBetweenJumps)
+			timer = Time.time;
+	}
+
+
+
+	// Shooting Raycast from the player to check if it is touching an object and stoping it from double jumping
+	void CheckGround(){
+		if (Physics.Raycast(origin,-transform.up, 1f, groundLayer)){
+			isGrounded = true;
+			isFalling = false;
+
+		}else {
+			isGrounded = false;
+			isFalling = true;
+		}
+	}
+
+
+		
+
+	// Moving the player along the X and Y axis
+	// Mulitplies walkSpeed by one and the input of the joystick (either 0 to 1 or 0 to -1)
+	void MovePlayer(){
+		gameObject.GetComponent<Rigidbody> ().AddForce (transform.right * walkSpeed * XCI.GetAxis (XboxAxis.LeftStickX, controller));
+
+	}
+
+
+	void OnCollisionEnter (Collision other){
+		if(other.gameObject.tag == "Moving"){
+			GetComponent<Rigidbody> ().velocity = target.GetComponent<Rigidbody> ().velocity;
+		}
+	}
+
+
 
 	// Sets the origin position for the Raycast and enables the camera to follow the player
 	void Update () {
@@ -48,54 +107,19 @@ public class PlayerController : MonoBehaviour {
 		float cameraZpos = -9.6f;
 		mainCamera.transform.position = new Vector3 (cameraXpos, cameraYpos, cameraZpos);
 
-		}
-
-	// Enables the player to jump and adds drag to slow the jump down
-	void Jump(){
-		gameObject.GetComponent<Rigidbody> ().AddForce (transform.up * jumpSpeed);
-
-		if (isFalling == true) {
-			rb.drag = downforce;
-		}
-
-
-		if (Time.time - timer > timerBetweenJumps)
-			timer = Time.time;
 	}
 
-	// Shooting Raycast from the player to check if it is touching an object and stoping it from double jumping
-	void CheckGround(){
-		if (Physics.Raycast(origin,-transform.up, 1f, groundLayer)){
-			isGrounded = true;
-
-		}else {
-			isGrounded = false;
-		}
-	}
-
-	// Moving the player along the X and Y axis
-	// Mulitplies walkSpeed by one and the input of the joystick (either 0 to 1 or 0 to -1)
-	void MovePlayer(){
-		
-
-		gameObject.GetComponent<Rigidbody> ().AddForce (transform.right * walkSpeed * XCI.GetAxis (XboxAxis.LeftStickX, controller)); 
-
-	}
 
 	// Upon button A press & player is on the ground, funs Jump.
 	void FixedUpdate (){
-		CheckGround ();
-		MovePlayer ();
 
-
-		if ( XCI.GetButtonDown(XboxButton.A, controller ) && isGrounded == true){
-			isFalling = true;
+		if (XCI.GetButtonDown (XboxButton.A, controller) && isGrounded == true) {
 			Jump ();
 
-		} else {
-			isFalling = false;
 		}
 
+		CheckGround ();
+		MovePlayer ();
 	}
 }
 
