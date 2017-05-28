@@ -2,16 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class DeathLine : MonoBehaviour {
 
-	public Text gameOverText;
 
 
 	void OnTriggerEnter (Collider other){
-		if(other.tag == "Player"){
-			gameOverText.text += "GAME-OVER";
-			Debug.Log ("DIE");
+		if (other.tag == "Player") {
+			SceneManager.LoadScene ("DeathScreen");
+
 		}
 	}
 }

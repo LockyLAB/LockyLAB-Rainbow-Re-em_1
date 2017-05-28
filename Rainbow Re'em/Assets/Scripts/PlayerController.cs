@@ -25,16 +25,16 @@ public class PlayerController : MonoBehaviour {
 	public GameObject mainCamera;
 	// Checks that the player is in the air 
 	public bool isFalling = false;
-	// Downforce sets the base drag value of the players jump
-	public float downforce;
 	// Weight sets the base value for load onto the player
 	public float weight;
 	// Public reference for the Rigidbody
 	private Rigidbody rb;
 	//Plaform target for velocity change
 	public GameObject target;
-	//Player initial position
-	public Vector3 prevPos;
+	//Downforce sets the base value for drag when jumping 
+	public float downforce;
+	//Resistence sets the base value for drag when walking
+	public float Resistence;
 
 
 
@@ -44,27 +44,19 @@ public class PlayerController : MonoBehaviour {
 	void Start () {
 		timer = Time.time;
 		rb = GetComponent <Rigidbody> ();
+		rb.drag = 0;
 
 	}
 
 
-	// Enables the player to jump and adds drag to slow the jump down
+	// Enables the player to jump
 	void Jump(){
-		gameObject.GetComponent<Rigidbody> ().AddForce (transform.up * jumpSpeed);
-
-
-		if (isFalling == true) {
-			gameObject.GetComponent<Rigidbody> ().velocity = new Vector3 (0f, -weight, 0f);
-			rb.drag = 0;
-		}
-		rb.drag = downforce;
-		prevPos = transform.position;
-
-
-		if (Time.time - timer > timerBetweenJumps)
+		rb.AddForce (transform.up * jumpSpeed);
+			
+		if (Time.time - timer > timerBetweenJumps) {
 			timer = Time.time;
+		}
 	}
-
 
 
 	// Shooting Raycast from the player to check if it is touching an object and stoping it from double jumping
@@ -85,14 +77,15 @@ public class PlayerController : MonoBehaviour {
 	// Moving the player along the X and Y axis
 	// Mulitplies walkSpeed by one and the input of the joystick (either 0 to 1 or 0 to -1)
 	void MovePlayer(){
-		gameObject.GetComponent<Rigidbody> ().AddForce (transform.right * walkSpeed * XCI.GetAxis (XboxAxis.LeftStickX, controller));
+		rb.AddForce (transform.right * walkSpeed * XCI.GetAxis (XboxAxis.LeftStickX, controller));
 
 	}
 
 
 	void OnCollisionEnter (Collision other){
 		if(other.gameObject.tag == "Moving"){
-			GetComponent<Rigidbody> ().velocity = target.GetComponent<Rigidbody> ().velocity;
+			rb.velocity = target.GetComponent<Rigidbody> ().velocity;
+			Debug.Log ("Clamp");
 		}
 	}
 
@@ -110,13 +103,23 @@ public class PlayerController : MonoBehaviour {
 	}
 
 
-	// Upon button A press & player is on the ground, funs Jump.
+	// Upon button A press & player is grounded, runs Jump, Check Ground and MovePlayer.
+	// Is Falling checks to see if player is in the air if so adds velocity to speed up fall.
 	void FixedUpdate (){
 
 		if (XCI.GetButtonDown (XboxButton.A, controller) && isGrounded == true) {
 			Jump ();
-
 		}
+
+		if (isFalling == true) {
+			rb.velocity += new Vector3 (0f, -weight, 0f);
+			rb.drag = downforce;
+			Debug.Log ("Jump");
+		} else {
+			rb.drag = Resistence;
+		}
+
+	
 
 		CheckGround ();
 		MovePlayer ();

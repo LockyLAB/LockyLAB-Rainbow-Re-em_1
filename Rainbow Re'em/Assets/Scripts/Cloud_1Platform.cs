@@ -23,19 +23,20 @@ public class Cloud_1Platform : MonoBehaviour {
 			if (timer < 0) {
 				this.transform.parent.gameObject.SetActive (false);
 			}
+			ChangeColor ();
 		}
 	}
 
 	void ChangeColor(){
 		if (timer < 1f){
 			startColor =  newColor;
-			Debug.Log ("Red");
+
 		}
 	}
 
 	void Update(){
 			DestoryObject();
-			ChangeColor ();
+			
 
 		}
 
