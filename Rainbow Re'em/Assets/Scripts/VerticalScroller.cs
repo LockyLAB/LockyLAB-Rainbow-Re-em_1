@@ -5,6 +5,8 @@ using UnityEngine;
 public class VerticalScroller : MonoBehaviour {
 
 	public float scrollingSpeed = 1f;
+	public float currentSpeed = 0f;
+	public float targetSpeed = 30f;
 	private Vector3 startPosition;
 
 	// Use this for initialization
@@ -16,5 +18,9 @@ public class VerticalScroller : MonoBehaviour {
 	void Update () {
 		transform.position = startPosition += Vector3.up * scrollingSpeed;
 
+		if(currentSpeed < targetSpeed){
+			currentSpeed += Time.deltaTime;
+
+		}
 	}
 }

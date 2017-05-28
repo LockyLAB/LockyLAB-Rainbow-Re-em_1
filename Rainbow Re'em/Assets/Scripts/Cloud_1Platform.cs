@@ -6,11 +6,18 @@ public class Cloud_1Platform : MonoBehaviour {
 
 	public float timer = 1;
 
-
+	public Color startColor = Color.cyan;
+	public Color newColor = Color.red;
 	public LayerMask GroundLayer;
 	public bool isGrounded = false;
+	private Renderer rend;
 
-	void Update(){
+	void Start(){
+		rend = GetComponent<Renderer> ();
+		rend.material.color = startColor;
+	}
+
+	void DestoryObject(){
 		if (isGrounded == true) {
 			timer -= Time.deltaTime;
 			if (timer < 0) {
@@ -18,6 +25,19 @@ public class Cloud_1Platform : MonoBehaviour {
 			}
 		}
 	}
+
+	void ChangeColor(){
+		if (timer < 1f){
+			startColor =  newColor;
+			Debug.Log ("Red");
+		}
+	}
+
+	void Update(){
+			DestoryObject();
+			ChangeColor ();
+
+		}
 
 
 		void OnTriggerEnter (Collider other){
