@@ -6,15 +6,16 @@ public class Cloud_1Platform : MonoBehaviour {
 
 	public float timer = 1;
 
+	public GameObject platform;
 	public Color startColor = Color.cyan;
 	public Color newColor = Color.red;
 	public LayerMask GroundLayer;
 	public bool isGrounded = false;
-	private Renderer rend;
+	private Material mat;
 
 	void Start(){
-		rend = GetComponent<Renderer> ();
-		rend.material.color = startColor;
+		mat = platform.GetComponent<Renderer> ().material;
+		mat.color = startColor;
 	}
 
 	void DestoryObject(){
@@ -28,9 +29,8 @@ public class Cloud_1Platform : MonoBehaviour {
 	}
 
 	void ChangeColor(){
-		if (timer < 1f){
-			startColor =  newColor;
-
+		if (timer < 0.5f){
+			mat.color = newColor;
 		}
 	}
 

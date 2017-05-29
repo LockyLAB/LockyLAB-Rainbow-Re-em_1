@@ -31,6 +31,8 @@ public class PlayerController : MonoBehaviour {
 	private Rigidbody rb;
 	//Plaform target for velocity change
 	public GameObject target;
+	// Platform target for velocity change
+	public GameObject altTarget;
 	//Downforce sets the base value for drag when jumping 
 	public float downforce;
 	//Resistence sets the base value for drag when walking
@@ -85,7 +87,8 @@ public class PlayerController : MonoBehaviour {
 	void OnCollisionEnter (Collision other){
 		if(other.gameObject.tag == "Moving"){
 			rb.velocity = target.GetComponent<Rigidbody> ().velocity;
-			Debug.Log ("Clamp");
+			Debug.Log (target.GetComponent<Rigidbody> ().velocity);
+
 		}
 	}
 
@@ -114,13 +117,10 @@ public class PlayerController : MonoBehaviour {
 		if (isFalling == true) {
 			rb.velocity += new Vector3 (0f, -weight, 0f);
 			rb.drag = downforce;
-			Debug.Log ("Jump");
 		} else {
 			rb.drag = Resistence;
 		}
-
-	
-
+			
 		CheckGround ();
 		MovePlayer ();
 	}
