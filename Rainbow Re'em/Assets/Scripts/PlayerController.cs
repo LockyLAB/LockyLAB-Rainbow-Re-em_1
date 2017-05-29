@@ -5,6 +5,8 @@ using XboxCtrlrInput;
 
 public class PlayerController : MonoBehaviour {
 
+
+
 	// TimberBetweenJumps puts a delay of one second between jumps
 	public float timerBetweenJumps = 1f;
 	// XboxController allow the choice of which controller from the front end
@@ -111,12 +113,15 @@ public class PlayerController : MonoBehaviour {
 
 
 //	void OnCollisionEnter (Collision other){
-//		if(other.gameObject.tag == "Moving"){
+//		if(other.gameObject.tag == "Moving"){ 
 //			rb.velocity = target.GetComponent<Rigidbody> ().velocity;
 //			Debug.Log (target.GetComponent<Rigidbody> ().velocity);
 //
 //		}
 //	}
+
+
+
 
 
 
@@ -136,6 +141,7 @@ public class PlayerController : MonoBehaviour {
 		float cameraZpos = -9.6f;
 		mainCamera.transform.position = new Vector3 (cameraXpos, cameraYpos, cameraZpos);
 
+	
 	}
 
 
@@ -164,6 +170,11 @@ public class PlayerController : MonoBehaviour {
 		CheckGround ();
 		MovePlayer ();
 	}
+
+
+
+
+
 }
 
 
