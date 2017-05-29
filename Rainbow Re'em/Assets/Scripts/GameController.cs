@@ -4,31 +4,41 @@ using UnityEngine;
 
 public class GameController : MonoBehaviour {
 
+
+	// List of all the rainbow pieces available to spawn
 	public List <GameObject> rainbowPieceList = new List <GameObject> ();
-
+	// List of all platforms available to spawn
 	public List <GameObject> platformList = new List<GameObject> ();
-
-	//	public GameObject groundPiece1;
-	//	public GameObject groundPiece2;
-	//	public GameObject groundPiece3;
-
-	// A Counter of all the pieces we have spwaned
+	// A Counter of all the rainbow pieces we have spwaned
 	public int rainbowPieceCounter = 0;
+	// A counter of all the platform pieces we have spawned
 	public int platformCounter = 0;
-	// The depth of each Ground Piece
+	// The height of each Rainbow Piece
 	public int heightOfRainbowPiece = 5;
+	// The height of each platform
 	public float heightOfPlatform = 10;
-	// How many pieces we want to spawn
+	// How many rainbow pieces we want to spawn
 	public int numberOfRainbowPieces = 40;
+	// How many platforms we want to spawn
 	public int numberOfPlatforms = 150;
-	//Player position reference
+	// Player position reference
 	public float playerPositionCounter = 0;
+	// Reference for the player object
 	public GameObject player;
+	// Reference for the maximum spawn point along the X Axis 
 	public float maxPlatformPos = 7.5f;
+	// Reference for the minimum spawn point along the X Axis 
 	public float minPlatformPos = -7f;
 
 
-	// Use this for initialization
+	// Start()
+	// 		Runs once at the beginning of the game. Starts two loop statements that check for how many platforms have been built 
+	//		and how many rainbow pieces have been built
+	// Params:
+	//
+	// Return:
+	// 		void
+
 	void Start () {
 		for (int i = 0; i <numberOfRainbowPieces; i++) {
 			//Instantiate (groundPiece, Vector3.zero, Quaternion.identity);
@@ -39,6 +49,13 @@ public class GameController : MonoBehaviour {
 			BuildPlatforms();
 		}
 	}
+
+	// BuildRainbow()
+	// 		Run continously with a looping statement and chooses a random rainbow piece and places it vertical based off the height set.
+	// Param:
+	//
+	// Return:
+	// 		void
 
 	private void BuildRainbow(){
 		GameObject rainbowPieceToPlace = null;
@@ -58,6 +75,14 @@ public class GameController : MonoBehaviour {
 		rainbowPieceCounter++;
 	}
 
+	// BuildPlatforms()
+	// 		Runs continously within a looping statement, chooses a random platform from a list and places it vertically based off the height set.
+	// 		Also randomly places each piece along the X axis randomly between the min and max set
+	// Param:
+	//
+	// Return:
+	// 		void
+
 	private void BuildPlatforms(){
 		GameObject platformPieceToPlace = null;
 
@@ -69,9 +94,15 @@ public class GameController : MonoBehaviour {
 
 	}
 
+	// Update()
+	//		Runs every frame and checks to see if the player has exceeded the max set in the Start() for loops
+	//  	If true adds to the counter so the loop can continue building
+	// Param:
+	//
+	// Return:
+	// 		void
 
 
-	// Update is called once per frame
 	void Update () {
 		if (player.transform.position.y > playerPositionCounter){
 			playerPositionCounter += heightOfRainbowPiece;

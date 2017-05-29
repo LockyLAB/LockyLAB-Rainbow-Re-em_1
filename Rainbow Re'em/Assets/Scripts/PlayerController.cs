@@ -41,8 +41,14 @@ public class PlayerController : MonoBehaviour {
 
 
 
-	//Sets the timer base position
-	//Sets rb as the rigidbody
+	// Start()
+	// 		Called once at the beginning of the game sets the timer to count in normal time. 
+	// 		short hand for grabing the player Rigidbody and sets the base value for drag at 0
+	// Param:
+	//
+	// Return:
+	// 		void
+
 	void Start () {
 		timer = Time.time;
 		rb = GetComponent <Rigidbody> ();
@@ -51,7 +57,14 @@ public class PlayerController : MonoBehaviour {
 	}
 
 
-	// Enables the player to jump
+	// Jump()
+	// 	Runs when the player presses A and moves the player vertically with physics.
+	//	Also sets a timer of a set value between jumps, to limit jump spaming.
+	// Params:
+	//
+	// Return:
+	// 		void
+
 	void Jump(){
 		rb.AddForce (transform.up * jumpSpeed);
 			
@@ -61,7 +74,13 @@ public class PlayerController : MonoBehaviour {
 	}
 
 
-	// Shooting Raycast from the player to check if it is touching an object and stoping it from double jumping
+	// CheckGround()
+	// 	Runs every frame and shoots an invisible line from below the player to check if the player is on the ground or in the air
+	// Params:
+	//
+	// Return:
+	//		void
+
 	void CheckGround(){
 		if (Physics.Raycast(origin,-transform.up, 1f, groundLayer)){
 			isGrounded = true;
@@ -75,26 +94,40 @@ public class PlayerController : MonoBehaviour {
 
 
 		
+	// MovePlayer()
+	//  Called when the player moves the left jopystick along the X axis
+	//  Multiplies movement by a set value
+	// Params:
+	//
+	// Return:
+	// 		void
 
-	// Moving the player along the X and Y axis
-	// Mulitplies walkSpeed by one and the input of the joystick (either 0 to 1 or 0 to -1)
 	void MovePlayer(){
 		rb.AddForce (transform.right * walkSpeed * XCI.GetAxis (XboxAxis.LeftStickX, controller));
 
 	}
 
 
-	void OnCollisionEnter (Collision other){
-		if(other.gameObject.tag == "Moving"){
-			rb.velocity = target.GetComponent<Rigidbody> ().velocity;
-			Debug.Log (target.GetComponent<Rigidbody> ().velocity);
-
-		}
-	}
 
 
+//	void OnCollisionEnter (Collision other){
+//		if(other.gameObject.tag == "Moving"){
+//			rb.velocity = target.GetComponent<Rigidbody> ().velocity;
+//			Debug.Log (target.GetComponent<Rigidbody> ().velocity);
+//
+//		}
+//	}
 
-	// Sets the origin position for the Raycast and enables the camera to follow the player
+
+
+	// Update()
+	// 	Runs once every frame, sets the origin position of the player so the raycast can reset. 
+	// 	Camera follows the player along the Y Axis
+	// Params:
+	//
+	// Return:
+	// 		void
+
 	void Update () {
 		origin = transform.position;
 
@@ -106,8 +139,15 @@ public class PlayerController : MonoBehaviour {
 	}
 
 
-	// Upon button A press & player is grounded, runs Jump, Check Ground and MovePlayer.
-	// Is Falling checks to see if player is in the air if so adds velocity to speed up fall.
+	// FixedUpdate()
+	//	Runs last every frame, runs CheckGround and Moveplayer.
+	// 	enables the player to jump by pressing A, then runs Jump
+	// 	Checks to see if the player is in the air, if so adds negative velocity to the player to make it fall quicker and
+	//  Also releases drag upon jump to increase mid air movement
+	// Params:
+	//
+	// Return:
+	//		void
 	void FixedUpdate (){
 
 		if (XCI.GetButtonDown (XboxButton.A, controller) && isGrounded == true) {
