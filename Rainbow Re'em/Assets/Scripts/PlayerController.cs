@@ -85,6 +85,7 @@ public class PlayerController : MonoBehaviour {
 
 	void CheckGround(){
 		if (Physics.Raycast(origin,-transform.up, 1f, groundLayer)){
+			Debug.DrawRay(origin, -transform.up, Color.yellow);
 			isGrounded = true;
 			isFalling = false;
 
@@ -114,15 +115,13 @@ public class PlayerController : MonoBehaviour {
 
 //	void OnCollisionEnter (Collision other){
 //		if(other.gameObject.tag == "Moving"){ 
+//			transform.parent.SetParent (other.transform);
+//			Debug.Log (other.transform.name);
 //			rb.velocity = target.GetComponent<Rigidbody> ().velocity;
 //			Debug.Log (target.GetComponent<Rigidbody> ().velocity);
 //
 //		}
 //	}
-
-
-
-
 
 
 	// Update()
@@ -140,8 +139,6 @@ public class PlayerController : MonoBehaviour {
 		float cameraYpos = this.transform.position.y + 1.5f;
 		float cameraZpos = -9.6f;
 		mainCamera.transform.position = new Vector3 (cameraXpos, cameraYpos, cameraZpos);
-
-	
 	}
 
 
@@ -170,11 +167,6 @@ public class PlayerController : MonoBehaviour {
 		CheckGround ();
 		MovePlayer ();
 	}
-
-
-
-
-
 }
 
 

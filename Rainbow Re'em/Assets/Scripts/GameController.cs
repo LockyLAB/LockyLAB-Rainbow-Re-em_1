@@ -29,6 +29,13 @@ public class GameController : MonoBehaviour {
 	public float maxPlatformPos = 7.5f;
 	// Reference for the minimum spawn point along the X Axis 
 	public float minPlatformPos = -7f;
+	// Reference point for maximum height range of platforms
+	public GameObject maxPlatformHeightPos;  
+	// Reference point for minimum height range of platforms
+	public GameObject minPlatformHeightPos; 
+	// Sets the layer platforms to interact with
+	private LayerMask groundLayer;
+
 
 
 	// Start()
@@ -73,11 +80,14 @@ public class GameController : MonoBehaviour {
 
 		Instantiate (rainbowPieceToPlace, Vector3.up * heightOfRainbowPiece * rainbowPieceCounter, Quaternion.identity);
 		rainbowPieceCounter++;
+
+	
 	}
 
 	// BuildPlatforms()
 	// 		Runs continously within a looping statement, chooses a random platform from a list and places it vertically based off the height set.
 	// 		Also randomly places each piece along the X axis randomly between the min and max set
+	//		Checks to see if a platform is directly above another, if so moves said platform.
 	// Param:
 	//
 	// Return:
@@ -88,11 +98,30 @@ public class GameController : MonoBehaviour {
 
 		platformPieceToPlace = platformList [Random.Range (0, platformList.Count)];
 
-		Instantiate (platformPieceToPlace, (Vector3.up * heightOfPlatform * platformCounter) + new Vector3(Random.Range(minPlatformPos, maxPlatformPos),0, 0), Quaternion.identity);
+		Vector3 platformPlacement = (Vector3.up * heightOfPlatform * platformCounter) + new Vector3 (Random.Range (minPlatformPos, maxPlatformPos), 0, 0);
+
+		Debug.Log (Vector3.up * heightOfPlatform * platformCounter);
+
+
+		GameObject GO = Instantiate (platformPieceToPlace, platformPlacement, Quaternion.identity);
 		platformCounter++;
 
+		if (Physics.Raycast (GO.transform.position, Vector3.up, 10f)) {
+			if (GO.transform.position.x > 0) {
+				GO.transform.position = new Vector3 (GO.transform.position.x + -5f, GO.transform.position.y, GO.transform.position.z);
+				Debug.Log(Physics.Raycast (GO.transform.position, Vector3.up, 10f));
+				Debug.DrawRay(GO.transform.position, Vector3.up, Color.yellow);
 
+			}
+				//GO.transform.position = new Vector3 (GO.transform.position.x, GO.transform.position.y + -2f, GO.transform.position.z);
+
+		} else {
+			GO.transform.position = new Vector3 (GO.transform.position.x + 5f, GO.transform.position.y, GO.transform.position.z);
+		}
 	}
+
+
+
 
 	// Update()
 	//		Runs every frame and checks to see if the player has exceeded the max set in the Start() for loops
