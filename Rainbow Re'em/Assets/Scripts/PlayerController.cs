@@ -31,10 +31,6 @@ public class PlayerController : MonoBehaviour {
 	public float weight;
 	// Public reference for the Rigidbody
 	private Rigidbody rb;
-	//Plaform target for velocity change
-	public GameObject target;
-	// Platform target for velocity change
-	public GameObject altTarget;
 	//Downforce sets the base value for drag when jumping 
 	public float downforce;
 	//Resistence sets the base value for drag when walking
@@ -85,8 +81,7 @@ public class PlayerController : MonoBehaviour {
 
 	void CheckGround(){
 		if (Physics.Raycast(origin,-transform.up, 1f, groundLayer)){
-			Debug.DrawRay(origin, -transform.up, Color.yellow);
-			isGrounded = true;
+			Debug.DrawRay(origin, -transform.up, Color.yellow);isGrounded = true;
 			isFalling = false;
 
 		}else {

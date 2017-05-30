@@ -87,7 +87,7 @@ public class GameController : MonoBehaviour {
 	// BuildPlatforms()
 	// 		Runs continously within a looping statement, chooses a random platform from a list and places it vertically based off the height set.
 	// 		Also randomly places each piece along the X axis randomly between the min and max set
-	//		Checks to see if a platform is directly above another, if so moves said platform.
+	//		Checks to see if a platform is directly above another, if so moves said platform along the x Axis to mis.
 	// Param:
 	//
 	// Return:
@@ -109,8 +109,8 @@ public class GameController : MonoBehaviour {
 		if (Physics.Raycast (GO.transform.position, Vector3.up, 10f)) {
 			if (GO.transform.position.x > 0) {
 				GO.transform.position = new Vector3 (GO.transform.position.x + -5f, GO.transform.position.y, GO.transform.position.z);
-				Debug.Log(Physics.Raycast (GO.transform.position, Vector3.up, 10f));
-				Debug.DrawRay(GO.transform.position, Vector3.up, Color.yellow);
+
+
 
 			}
 				//GO.transform.position = new Vector3 (GO.transform.position.x, GO.transform.position.y + -2f, GO.transform.position.z);
