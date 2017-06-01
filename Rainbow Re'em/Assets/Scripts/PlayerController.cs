@@ -36,6 +36,8 @@ public class PlayerController : MonoBehaviour {
 	//Resistence sets the base value for drag when walking
 	public float Resistence;
 
+	public GameObject target;
+
 
 
 
@@ -105,18 +107,23 @@ public class PlayerController : MonoBehaviour {
 
 	}
 
+	// OnCollisionEnter()
+	// 	Called when player comes into contact with anything tagged Moving
+	//	Causes the player to take control of the object with its velocity
+	// Params:
+	// Collision with any object except itself
+	// Return:
+	//		void
+
+	void OnCollisionEnter (Collision other){
+		if(other.gameObject.tag == "Moving"){ 
+			rb.velocity = target.GetComponent<Rigidbody> ().velocity;
+			Debug.Log (target.GetComponent<Rigidbody> ().velocity);
+
+		}
+	}
 
 
-
-//	void OnCollisionEnter (Collision other){
-//		if(other.gameObject.tag == "Moving"){ 
-//			transform.parent.SetParent (other.transform);
-//			Debug.Log (other.transform.name);
-//			rb.velocity = target.GetComponent<Rigidbody> ().velocity;
-//			Debug.Log (target.GetComponent<Rigidbody> ().velocity);
-//
-//		}
-//	}
 
 
 	// Update()
@@ -146,6 +153,7 @@ public class PlayerController : MonoBehaviour {
 	//
 	// Return:
 	//		void
+
 	void FixedUpdate (){
 
 		if (XCI.GetButtonDown (XboxButton.A, controller) && isGrounded == true) {

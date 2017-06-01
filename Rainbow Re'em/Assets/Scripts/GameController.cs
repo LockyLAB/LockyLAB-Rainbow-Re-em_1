@@ -100,8 +100,6 @@ public class GameController : MonoBehaviour {
 
 		Vector3 platformPlacement = (Vector3.up * heightOfPlatform * platformCounter) + new Vector3 (Random.Range (minPlatformPos, maxPlatformPos), 0, 0);
 
-		Debug.Log (Vector3.up * heightOfPlatform * platformCounter);
-
 
 		GameObject GO = Instantiate (platformPieceToPlace, platformPlacement, Quaternion.identity);
 		platformCounter++;
@@ -110,14 +108,11 @@ public class GameController : MonoBehaviour {
 			if (GO.transform.position.x > 0) {
 				GO.transform.position = new Vector3 (GO.transform.position.x + -5f, GO.transform.position.y, GO.transform.position.z);
 
-
+			} else if (GO.transform.position.x < 0) {
+				GO.transform.position = new Vector3 (GO.transform.position.x + 5f, GO.transform.position.y, GO.transform.position.z);
 
 			}
-				//GO.transform.position = new Vector3 (GO.transform.position.x, GO.transform.position.y + -2f, GO.transform.position.z);
-
-		} else {
-			GO.transform.position = new Vector3 (GO.transform.position.x + 5f, GO.transform.position.y, GO.transform.position.z);
-		}
+		} 
 	}
 
 
