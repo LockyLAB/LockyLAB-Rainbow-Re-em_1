@@ -3,24 +3,30 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class GameController : MonoBehaviour {
-
+	
 
 	// List of all the rainbow pieces available to spawn
 	public List <GameObject> rainbowPieceList = new List <GameObject> ();
 	// List of all platforms available to spawn
 	public List <GameObject> platformList = new List<GameObject> ();
+	// A counter for the Lie platforms that have spawned
+	public int liePlatformCounter = 0;
 	// A Counter of all the rainbow pieces we have spwaned
 	public int rainbowPieceCounter = 0;
 	// A counter of all the platform pieces we have spawned
 	public int platformCounter = 0;
 	// The height of each Rainbow Piece
 	public int heightOfRainbowPiece = 5;
+	// The height of each Lie Platform
+	public float heightOfLiePlatform = 15;
 	// The height of each platform
 	public float heightOfPlatform = 10;
 	// How many rainbow pieces we want to spawn
 	public int numberOfRainbowPieces = 40;
 	// How many platforms we want to spawn
 	public int numberOfPlatforms = 150;
+	// How many Lie Platforms that will be spawned
+	public int numberOfLiePlatforms = 5;
 	// Player position reference
 	public float playerPositionCounter = 0;
 	// Reference for the player object
@@ -28,13 +34,12 @@ public class GameController : MonoBehaviour {
 	// Reference for the maximum spawn point along the X Axis 
 	public float maxPlatformPos = 7.5f;
 	// Reference for the minimum spawn point along the X Axis 
-	public float minPlatformPos = -7f;
-	// Reference point for maximum height range of platforms
-	public GameObject maxPlatformHeightPos;  
-	// Reference point for minimum height range of platforms
-	public GameObject minPlatformHeightPos; 
+	public float minPlatformPos = -7f; 
 	// Sets the layer platforms to interact with
 	private LayerMask groundLayer;
+	// Sets what Lie platform Object is
+	public GameObject liePlatform;
+
 
 
 
@@ -48,12 +53,14 @@ public class GameController : MonoBehaviour {
 
 	void Start () {
 		for (int i = 0; i <numberOfRainbowPieces; i++) {
-			//Instantiate (groundPiece, Vector3.zero, Quaternion.identity);
 			BuildRainbow();
 		}
 
 		for (int i = 0; i < numberOfPlatforms; i++) {
 			BuildPlatforms();
+		}
+		for (int i = 0; i < numberOfLiePlatforms; i++) {
+			BuildLiePlatforms();
 		}
 	}
 
@@ -62,19 +69,11 @@ public class GameController : MonoBehaviour {
 	// Param:
 	//
 	// Return:
-	// 		void
+	// 		void	
 
 	private void BuildRainbow(){
 		GameObject rainbowPieceToPlace = null;
-		//int randomPiece = Random.Range (0, 3);
-		//
-		//		if (randomPiece == 0) {
-		//			groundPieceToPlace = groundPiece1;
-		//		} else if (randomPiece == 1) {
-		//			groundPieceToPlace = groundPiece2;
-		//		} else if (randomPiece == 2) {
-		//			groundPieceToPlace = groundPiece3;
-		//		}
+
 
 		rainbowPieceToPlace = rainbowPieceList [Random.Range (0, rainbowPieceList.Count)];
 
@@ -104,16 +103,46 @@ public class GameController : MonoBehaviour {
 		GameObject GO = Instantiate (platformPieceToPlace, platformPlacement, Quaternion.identity);
 		platformCounter++;
 
-		if (Physics.Raycast (GO.transform.position, Vector3.up, 10f)) {
+		if (Physics.Raycast (GO.transform.position, Vector3.up, 4f)) {
 			if (GO.transform.position.x > 0) {
-				GO.transform.position = new Vector3 (GO.transform.position.x + -5f, GO.transform.position.y, GO.transform.position.z);
+			GO.transform.position = new Vector3 (GO.transform.position.x + -4f, GO.transform.position.y, GO.transform.position.z);
+
+
 
 			} else if (GO.transform.position.x < 0) {
-				GO.transform.position = new Vector3 (GO.transform.position.x + 5f, GO.transform.position.y, GO.transform.position.z);
+				GO.transform.position = new Vector3 (GO.transform.position.x + 4f, GO.transform.position.y, GO.transform.position.z);
 
 			}
 		} 
+	
 	}
+
+	// BuildLiePlatforms()
+	// 		Runs continously within a looping statement, builds one Lie Platform and places it vertically between the other platforms.
+	// 		Also randomly places along the X axis randomly between the min and max set
+	//		Checks to see if a platform is directly above another, or next to another if so moves said platform along the x Axis and the y Axis to mis.
+	// Param:
+	//
+	// Return:
+	// 		void
+
+
+	private void BuildLiePlatforms(){
+
+		Vector3 liePlatformPlacement =  (new Vector3(0f, 0.5f, 0f) * heightOfLiePlatform * liePlatformCounter) + new Vector3 (Random.Range (minPlatformPos, maxPlatformPos), 0, 0);
+
+		GameObject GO = Instantiate (liePlatform, liePlatformPlacement, Quaternion.identity);
+		liePlatformCounter++;
+
+		if(Physics.Raycast(GO.transform.position, Vector3.right, 5f)){
+			
+			GO.transform.position = new Vector3 (GO.transform.position.x + -6f, GO.transform.position.y + -1f, GO.transform.position.z);
+			
+		} else if (Physics.Raycast(GO.transform.position, -Vector3.right, 5f)){
+			GO.transform.position = new Vector3 (GO.transform.position.x + 6f, GO.transform.position.y + 1f, GO.transform.position.z);
+		}
+	}
+
 
 
 
@@ -133,6 +162,7 @@ public class GameController : MonoBehaviour {
 	
 			BuildRainbow();
 			BuildPlatforms();
+			BuildLiePlatforms ();
 		}
 	}
 }

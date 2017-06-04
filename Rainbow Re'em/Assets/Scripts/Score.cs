@@ -18,6 +18,7 @@ public class Score : MonoBehaviour {
 	private Vector3 startPos = new Vector3 (0, 0, 0);
 
 
+
 	// Update()
 	// 		Runs every frame and runs ScoreCount
 	// Params:
@@ -44,5 +45,6 @@ public class Score : MonoBehaviour {
 		startPos = new Vector3 (0, transform.position.y, 0);
 		distance =  Mathf.Round(Vector3.Distance(playerPos, startPos) * multiplier);
 		scoreOutputText.text = distance.ToString();
+
 	}
 }
