@@ -32,7 +32,7 @@ public class VerticalScroller : MonoBehaviour {
 	// 		void
 
 	void Update () {
-		transform.position = startPosition += Vector3.up * scrollingSpeed;
+		transform.position = startPosition += Vector3.up * scrollingSpeed * Time.deltaTime;
 
 		if(currentSpeed < targetSpeed){
 			currentSpeed += Time.deltaTime;

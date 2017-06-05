@@ -40,6 +40,9 @@ public class GameController : MonoBehaviour {
 	// Sets what Lie platform Object is
 	public GameObject liePlatform;
 
+	public Vector3 raycastPosLeft = new Vector3 (0f, 0f, 0f);
+	public Vector3 raycastPosRight = new Vector3 (0f, 0f, 0f);
+
 
 
 
@@ -100,22 +103,48 @@ public class GameController : MonoBehaviour {
 		Vector3 platformPlacement = (Vector3.up * heightOfPlatform * platformCounter) + new Vector3 (Random.Range (minPlatformPos, maxPlatformPos), 0, 0);
 
 
-		GameObject GO = Instantiate (platformPieceToPlace, platformPlacement, Quaternion.identity);
+		Instantiate (platformPieceToPlace, platformPlacement, Quaternion.identity);
 		platformCounter++;
 
-		if (Physics.Raycast (GO.transform.position, Vector3.up, 4f)) {
-			if (GO.transform.position.x > 0) {
-			GO.transform.position = new Vector3 (GO.transform.position.x + -4f, GO.transform.position.y, GO.transform.position.z);
+		raycastPosLeft = transform.position;
+		raycastPosRight = transform.position;
 
+		raycastPosLeft.x = raycastPosLeft.x - 0.5f;
+		raycastPosRight.x = raycastPosRight.x + 0.5f;
 
-
-			} else if (GO.transform.position.x < 0) {
-				GO.transform.position = new Vector3 (GO.transform.position.x + 4f, GO.transform.position.y, GO.transform.position.z);
-
+		if (Physics.Raycast (raycastPosLeft, Vector3.up, 4f)) {
+			if (transform.position.x > 0) {
+				transform.position = new Vector3 (transform.position.x + -4f, transform.position.y, transform.position.z);
 			}
-		} 
-	
+			Debug.DrawRay (raycastPosLeft, Vector3.up);
+		}
+
+
+		if (Physics.Raycast (raycastPosRight, Vector3.up, 4f)) {
+			if (transform.position.x < 0) {
+				transform.position = new Vector3 (transform.position.x + 4f, transform.position.y, transform.position.z);
+			}
+			Debug.DrawRay (raycastPosRight, Vector3.up, Color.magenta);
+		}
+
 	}
+
+
+//		RaycastHit hit = Physics.Raycast (this.transform.position, Vector3.up, 3f);
+//		if (hit.collider) {
+//			MovePlatforms ();
+//		}
+//	}
+
+
+//		if (Physics.Raycast (transform.position, Vector3.up, 4f)) {
+//			Debug.DrawRay (transform.position, Vector3.up, Color.yellow, 4f);
+//			MovePlatforms ();
+//
+//			}
+//
+
+
 
 	// BuildLiePlatforms()
 	// 		Runs continously within a looping statement, builds one Lie Platform and places it vertically between the other platforms.
@@ -134,6 +163,20 @@ public class GameController : MonoBehaviour {
 		GameObject GO = Instantiate (liePlatform, liePlatformPlacement, Quaternion.identity);
 		liePlatformCounter++;
 
+//		raycastPosLeft = transform.position;
+//		raycastPosRight = transform.position;
+//
+//		raycastPosLeft.x = raycastPosLeft.x - 1f;
+//		raycastPosRight.x = raycastPosRight.x + 1f;
+//
+//		if (Physics.Raycast(raycastPosLeft, Vector3.right, 4f)){
+//			MoveLiePlatforms ();
+//		}
+//
+//		if (Physics.Raycast(raycastPosLeft, -Vector3.right, 4f)){
+//			MoveLiePlatforms ();
+//		}
+
 		if(Physics.Raycast(GO.transform.position, Vector3.right, 5f)){
 			
 			GO.transform.position = new Vector3 (GO.transform.position.x + -6f, GO.transform.position.y + -1f, GO.transform.position.z);
@@ -143,6 +186,25 @@ public class GameController : MonoBehaviour {
 		}
 	}
 
+
+//	private void MovePlatforms(){
+//		if (transform.position.x > 0) {
+//		transform.position = new Vector3 (transform.position.x + -4f, transform.position.y, transform.position.z);
+//			Debug.Log (new Vector3 (transform.position.x + -4f, transform.position.y, transform.position.z));
+//
+//		} else if (transform.position.x < 0) {
+//		transform.position = new Vector3 (transform.position.x + 4f, transform.position.y, transform.position.z);
+//		}
+//	}
+
+//	private void MoveLiePlatforms(){
+//		if (transform.position.x > 0){
+//			transform.position = new Vector3 (transform.position.x + -4f, transform.position.y + -1f, transform.position.z);
+//		
+//		} else if (transform.position.x < 0){
+//			transform.position = new Vector3 (transform.position.x + 4f, transform.position.y + 1f, transform.position.z);
+//		}
+//	}
 
 
 
