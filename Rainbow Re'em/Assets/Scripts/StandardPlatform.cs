@@ -71,16 +71,3 @@ public class StandardPlatform : MonoBehaviour {
 		}
 
 }
-
-
-		
-	
-
-
-		
-		
-
-		//transform.position = Vector3.Lerp (startMarker, endMarker, Mathf.SmoothStep (0f, 0.75f, Mathf.PingPong (Time.time * speed, 1f)));
-
-
-	

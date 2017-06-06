@@ -15,25 +15,38 @@ public class Score : MonoBehaviour {
 	// Null score value set at the start of the game
 	private Vector3 playerPos = new Vector3 (0, 0, 0);
 	// Null score value set the start of the game 
-	private Vector3 startPos = new Vector3 (0, 0, 0);
+	private Vector3 startPos = new Vector3 (0, -7.28f, 0);
 
+
+	//-----------------------------------------------------------------------------------------------------------------------------------------------------
+	// Awake()
+	//		Runs before anything else and makes sure that this script is not destroyed when the scene is deleted
+	// Params;
+	//
+	// Return:
+	//		void
+	//-----------------------------------------------------------------------------------------------------------------------------------------------------
 	void Awake(){
 		DontDestroyOnLoad (transform.gameObject);
 	}
 
+
+	//-----------------------------------------------------------------------------------------------------------------------------------------------------
 	// Update()
 	// 		Runs every frame and runs ScoreCount
 	// Params:
 	//
 	// Return:
 	// 		void
-
+	//-----------------------------------------------------------------------------------------------------------------------------------------------------
 	void Update () {
 		if(player != null){
 			ScoreCount ();
 		}
 	}
 
+
+	//-----------------------------------------------------------------------------------------------------------------------------------------------------
 	// 	ScoreCount()
 	// 		Runs every frame and gets a value from the players starting y position and current y posiition then muliplies by a set value, rounding up
 	// 		Outputs this value on the UI 
@@ -41,13 +54,19 @@ public class Score : MonoBehaviour {
 	//
 	// Return:
 	// 		void
-
-
+	//-----------------------------------------------------------------------------------------------------------------------------------------------------
 	void ScoreCount(){
 		playerPos = new Vector3 (0, player.position.y, 0);
 		startPos = new Vector3 (0, transform.position.y, 0);
-		distance =  Mathf.Round(Vector3.Distance(playerPos, startPos) * multiplier);
-		scoreOutputText.text = distance.ToString();
+		float currentDistance =  Mathf.Round(Vector3.Distance(playerPos, startPos) * multiplier);
+
+		if(currentDistance > distance){
+			distance = currentDistance;
+			scoreOutputText.text = distance.ToString();
+		}
+
+
+
 
 	}
 }

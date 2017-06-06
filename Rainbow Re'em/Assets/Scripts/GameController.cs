@@ -96,9 +96,6 @@ public class GameController : MonoBehaviour {
 
 		platformPieceToPlace = platformList [Random.Range (0, platformList.Count)];
 
-		//platformPlacement = (Vector3.up * heightOfPlatform * platformCounter) + new Vector3 (Random.Range (minPlatformPos, maxPlatformPos), 0, 0);
-
-
 		Instantiate (platformPieceToPlace, platformPlacement, Quaternion.identity);
 		platformCounter++;
 
@@ -110,11 +107,10 @@ public class GameController : MonoBehaviour {
 			infiniteLoopProtection ++;
 
 			if(infiniteLoopProtection > 1000){
-				Debug.Log(platformPlacement.x + " " + previousValue.x);
 				break;
 			}
 
-		} while ( platformPlacement.x  >= previousValue.x - 3 && platformPlacement.x <= previousValue.x + 3);
+		} while ( platformPlacement.x  >= previousValue.x - 2 && platformPlacement.x <= previousValue.x + 2);
 		//} while ( platformPlacement.x  <= previousValue.x || platformPlacement.x + 3 >= previousValue.x);
 		previousValue = platformPlacement;
 
