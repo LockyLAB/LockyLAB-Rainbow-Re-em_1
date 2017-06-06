@@ -9,24 +9,18 @@ public class GameController : MonoBehaviour {
 	public List <GameObject> rainbowPieceList = new List <GameObject> ();
 	// List of all platforms available to spawn
 	public List <GameObject> platformList = new List<GameObject> ();
-	// A counter for the Lie platforms that have spawned
-	public int liePlatformCounter = 0;
 	// A Counter of all the rainbow pieces we have spwaned
 	public int rainbowPieceCounter = 0;
 	// A counter of all the platform pieces we have spawned
 	public int platformCounter = 0;
 	// The height of each Rainbow Piece
 	public int heightOfRainbowPiece = 5;
-	// The height of each Lie Platform
-	public float heightOfLiePlatform = 15;
 	// The height of each platform
 	public float heightOfPlatform = 10;
 	// How many rainbow pieces we want to spawn
 	public int numberOfRainbowPieces = 40;
 	// How many platforms we want to spawn
 	public int numberOfPlatforms = 150;
-	// How many Lie Platforms that will be spawned
-	public int numberOfLiePlatforms = 5;
 	// Player position reference
 	public float playerPositionCounter = 0;
 	// Reference for the player object
@@ -37,9 +31,10 @@ public class GameController : MonoBehaviour {
 	public float minPlatformPos = -7f; 
 	// Sets the layer platforms to interact with
 	private LayerMask groundLayer;
-	// Sets what Lie platform Object is
-	public GameObject liePlatform;
-
+	// 
+	public Vector3 platformPlacement;
+	//
+	public Vector3 previousValue = Vector3.zero;
 
 
 	//----------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -59,17 +54,10 @@ public class GameController : MonoBehaviour {
 		for (int i = 0; i < numberOfPlatforms; i++) {
 			BuildPlatforms();
 		}
-		for (int i = 0; i < numberOfLiePlatforms; i++) {
-			BuildLiePlatforms();
-		}
-
-//		do {
-//			Random.Range (minPlatformPos, maxPlatformPos);
-//		} while(Random.Range (minPlatformPos > 3, maxPlatformPos < 3));
-//		{
-//			BuildPlatforms();
+//		for (int i = 0; i < numberOfLiePlatforms; i++) {
+//			BuildLiePlatforms();
 //		}
-//	}
+	}
 
 
 
@@ -89,8 +77,6 @@ public class GameController : MonoBehaviour {
 
 		Instantiate (rainbowPieceToPlace, Vector3.up * heightOfRainbowPiece * rainbowPieceCounter, Quaternion.identity);
 		rainbowPieceCounter++;
-
-	
 	}
 
 
@@ -110,37 +96,30 @@ public class GameController : MonoBehaviour {
 
 		platformPieceToPlace = platformList [Random.Range (0, platformList.Count)];
 
-		Vector3 platformPlacement = (Vector3.up * heightOfPlatform * platformCounter) + new Vector3 (Random.Range (minPlatformPos, maxPlatformPos), 0, 0);
+		//platformPlacement = (Vector3.up * heightOfPlatform * platformCounter) + new Vector3 (Random.Range (minPlatformPos, maxPlatformPos), 0, 0);
 
 
 		Instantiate (platformPieceToPlace, platformPlacement, Quaternion.identity);
 		platformCounter++;
 
-	}
+		int infiniteLoopProtection = 0;
 
 
+		do {
+			platformPlacement = (Vector3.up * heightOfPlatform * platformCounter) + new Vector3 (Random.Range (minPlatformPos, maxPlatformPos), 0, 0);
+			infiniteLoopProtection ++;
 
+			if(infiniteLoopProtection > 1000){
+				Debug.Log(platformPlacement.x + " " + previousValue.x);
+				break;
+			}
 
-	//----------------------------------------------------------------------------------------------------------------------------------------------------------------------
-	// BuildLiePlatforms()
-	// 		Runs continously within a looping statement, builds one Lie Platform and places it vertically between the other platforms.
-	// 		Also randomly places along the X axis randomly between the min and max set
-	//		Checks to see if a platform is directly above another, or next to another if so moves said platform along the x Axis and the y Axis to mis.
-	// Param:
-	//
-	// Return:
-	// 		void
-	//----------------------------------------------------------------------------------------------------------------------------------------------------------------------
-	private void BuildLiePlatforms(){
-
-		Vector3 liePlatformPlacement =  (new Vector3(0f, 0.5f, 0f) * heightOfLiePlatform * liePlatformCounter) + new Vector3 (Random.Range (minPlatformPos, maxPlatformPos), 0, 0);
-
-		GameObject GO = Instantiate (liePlatform, liePlatformPlacement, Quaternion.identity);
-		liePlatformCounter++;
+		} while ( platformPlacement.x  >= previousValue.x - 3 && platformPlacement.x <= previousValue.x + 3);
+		//} while ( platformPlacement.x  <= previousValue.x || platformPlacement.x + 3 >= previousValue.x);
+		previousValue = platformPlacement;
 
 	}
-
-
+		
 
 	//----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 	// Update()
@@ -157,7 +136,7 @@ public class GameController : MonoBehaviour {
 	
 			BuildRainbow();
 			BuildPlatforms();
-			BuildLiePlatforms ();
+			//BuildLiePlatforms ();
 		}
 	}
 }
