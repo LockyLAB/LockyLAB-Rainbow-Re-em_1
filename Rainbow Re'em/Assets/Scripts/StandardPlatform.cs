@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class StandardPlatform : MonoBehaviour {
 
+	public Vector3 raycastPosLeft = new Vector3 (0f, 0f, 0f);
+	public Vector3 raycastPosRight = new Vector3 (0f, 0f, 0f);
+
 	public bool beginMove = false;
 	public bool endPosRight = false;
 	public bool endPosLeft = false;
@@ -14,7 +17,7 @@ public class StandardPlatform : MonoBehaviour {
 	public float maxAxisPos = 4.2f;
 	public float minAxisPos = -4f;
 
-
+	//----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 	// Start()
 	// 	called at the begining of the game and only once sets the starting position of the platform and
 	// 	clarifies the endmarker position.
@@ -22,7 +25,7 @@ public class StandardPlatform : MonoBehaviour {
 	// 		
 	//Return:
 	//		void
-
+	//----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 	void Start () {
 		beginMove = true;
 		rb = GetComponent<Rigidbody> ();
@@ -59,12 +62,6 @@ public class StandardPlatform : MonoBehaviour {
 		}
 	}
 		
-
-
-
-
-
-
 	void FixedUpdate (){
 	
 		BeginLeft();

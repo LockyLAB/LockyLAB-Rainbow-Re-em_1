@@ -40,12 +40,9 @@ public class GameController : MonoBehaviour {
 	// Sets what Lie platform Object is
 	public GameObject liePlatform;
 
-	public Vector3 raycastPosLeft = new Vector3 (0f, 0f, 0f);
-	public Vector3 raycastPosRight = new Vector3 (0f, 0f, 0f);
 
 
-
-
+	//----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 	// Start()
 	// 		Runs once at the beginning of the game. Starts two loop statements that check for how many platforms have been built 
 	//		and how many rainbow pieces have been built
@@ -53,7 +50,7 @@ public class GameController : MonoBehaviour {
 	//
 	// Return:
 	// 		void
-
+	//----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 	void Start () {
 		for (int i = 0; i <numberOfRainbowPieces; i++) {
 			BuildRainbow();
@@ -65,15 +62,25 @@ public class GameController : MonoBehaviour {
 		for (int i = 0; i < numberOfLiePlatforms; i++) {
 			BuildLiePlatforms();
 		}
-	}
 
+//		do {
+//			Random.Range (minPlatformPos, maxPlatformPos);
+//		} while(Random.Range (minPlatformPos > 3, maxPlatformPos < 3));
+//		{
+//			BuildPlatforms();
+//		}
+//	}
+
+
+
+	//----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 	// BuildRainbow()
 	// 		Run continously with a looping statement and chooses a random rainbow piece and places it vertical based off the height set.
 	// Param:
 	//
 	// Return:
 	// 		void	
-
+	//----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 	private void BuildRainbow(){
 		GameObject rainbowPieceToPlace = null;
 
@@ -86,6 +93,9 @@ public class GameController : MonoBehaviour {
 	
 	}
 
+
+
+	//----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 	// BuildPlatforms()
 	// 		Runs continously within a looping statement, chooses a random platform from a list and places it vertically based off the height set.
 	// 		Also randomly places each piece along the X axis randomly between the min and max set
@@ -94,7 +104,7 @@ public class GameController : MonoBehaviour {
 	//
 	// Return:
 	// 		void
-
+	//----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 	private void BuildPlatforms(){
 		GameObject platformPieceToPlace = null;
 
@@ -106,46 +116,12 @@ public class GameController : MonoBehaviour {
 		Instantiate (platformPieceToPlace, platformPlacement, Quaternion.identity);
 		platformCounter++;
 
-		raycastPosLeft = transform.position;
-		raycastPosRight = transform.position;
-
-		raycastPosLeft.x = raycastPosLeft.x - 0.5f;
-		raycastPosRight.x = raycastPosRight.x + 0.5f;
-
-		if (Physics.Raycast (raycastPosLeft, Vector3.up, 4f)) {
-			if (transform.position.x > 0) {
-				transform.position = new Vector3 (transform.position.x + -4f, transform.position.y, transform.position.z);
-			}
-			Debug.DrawRay (raycastPosLeft, Vector3.up);
-		}
-
-
-		if (Physics.Raycast (raycastPosRight, Vector3.up, 4f)) {
-			if (transform.position.x < 0) {
-				transform.position = new Vector3 (transform.position.x + 4f, transform.position.y, transform.position.z);
-			}
-			Debug.DrawRay (raycastPosRight, Vector3.up, Color.magenta);
-		}
-
 	}
 
 
-//		RaycastHit hit = Physics.Raycast (this.transform.position, Vector3.up, 3f);
-//		if (hit.collider) {
-//			MovePlatforms ();
-//		}
-//	}
 
 
-//		if (Physics.Raycast (transform.position, Vector3.up, 4f)) {
-//			Debug.DrawRay (transform.position, Vector3.up, Color.yellow, 4f);
-//			MovePlatforms ();
-//
-//			}
-//
-
-
-
+	//----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 	// BuildLiePlatforms()
 	// 		Runs continously within a looping statement, builds one Lie Platform and places it vertically between the other platforms.
 	// 		Also randomly places along the X axis randomly between the min and max set
@@ -154,8 +130,7 @@ public class GameController : MonoBehaviour {
 	//
 	// Return:
 	// 		void
-
-
+	//----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 	private void BuildLiePlatforms(){
 
 		Vector3 liePlatformPlacement =  (new Vector3(0f, 0.5f, 0f) * heightOfLiePlatform * liePlatformCounter) + new Vector3 (Random.Range (minPlatformPos, maxPlatformPos), 0, 0);
@@ -163,52 +138,11 @@ public class GameController : MonoBehaviour {
 		GameObject GO = Instantiate (liePlatform, liePlatformPlacement, Quaternion.identity);
 		liePlatformCounter++;
 
-//		raycastPosLeft = transform.position;
-//		raycastPosRight = transform.position;
-//
-//		raycastPosLeft.x = raycastPosLeft.x - 1f;
-//		raycastPosRight.x = raycastPosRight.x + 1f;
-//
-//		if (Physics.Raycast(raycastPosLeft, Vector3.right, 4f)){
-//			MoveLiePlatforms ();
-//		}
-//
-//		if (Physics.Raycast(raycastPosLeft, -Vector3.right, 4f)){
-//			MoveLiePlatforms ();
-//		}
-
-		if(Physics.Raycast(GO.transform.position, Vector3.right, 5f)){
-			
-			GO.transform.position = new Vector3 (GO.transform.position.x + -6f, GO.transform.position.y + -1f, GO.transform.position.z);
-			
-		} else if (Physics.Raycast(GO.transform.position, -Vector3.right, 5f)){
-			GO.transform.position = new Vector3 (GO.transform.position.x + 6f, GO.transform.position.y + 1f, GO.transform.position.z);
-		}
 	}
 
 
-//	private void MovePlatforms(){
-//		if (transform.position.x > 0) {
-//		transform.position = new Vector3 (transform.position.x + -4f, transform.position.y, transform.position.z);
-//			Debug.Log (new Vector3 (transform.position.x + -4f, transform.position.y, transform.position.z));
-//
-//		} else if (transform.position.x < 0) {
-//		transform.position = new Vector3 (transform.position.x + 4f, transform.position.y, transform.position.z);
-//		}
-//	}
 
-//	private void MoveLiePlatforms(){
-//		if (transform.position.x > 0){
-//			transform.position = new Vector3 (transform.position.x + -4f, transform.position.y + -1f, transform.position.z);
-//		
-//		} else if (transform.position.x < 0){
-//			transform.position = new Vector3 (transform.position.x + 4f, transform.position.y + 1f, transform.position.z);
-//		}
-//	}
-
-
-
-
+	//----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 	// Update()
 	//		Runs every frame and checks to see if the player has exceeded the max set in the Start() for loops
 	//  	If true adds to the counter so the loop can continue building
@@ -216,8 +150,7 @@ public class GameController : MonoBehaviour {
 	//
 	// Return:
 	// 		void
-
-
+	//----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 	void Update () {
 		if (player.transform.position.y > playerPositionCounter){
 			playerPositionCounter += heightOfRainbowPiece;

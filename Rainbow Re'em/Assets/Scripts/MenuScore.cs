@@ -5,18 +5,12 @@ using UnityEngine.UI;
 
 public class MenuScore : MonoBehaviour {
 
-	public int finalScore;
+
 	public Text finalScoreOutputText;
 
 
 	void Awake(){
-		
+		finalScoreOutputText.text = GameObject.FindGameObjectWithTag ("GameController").GetComponent<Score> ().distance.ToString();
 		}
-
-	
-	// Update is called once per frame
-	void Update () {
 		
-
-	}
 }

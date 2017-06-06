@@ -17,7 +17,9 @@ public class Score : MonoBehaviour {
 	// Null score value set the start of the game 
 	private Vector3 startPos = new Vector3 (0, 0, 0);
 
-
+	void Awake(){
+		DontDestroyOnLoad (transform.gameObject);
+	}
 
 	// Update()
 	// 		Runs every frame and runs ScoreCount
@@ -27,8 +29,9 @@ public class Score : MonoBehaviour {
 	// 		void
 
 	void Update () {
-		ScoreCount();
-	
+		if(player != null){
+			ScoreCount ();
+		}
 	}
 
 	// 	ScoreCount()
