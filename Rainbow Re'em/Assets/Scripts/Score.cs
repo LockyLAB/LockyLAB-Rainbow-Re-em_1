@@ -15,7 +15,7 @@ public class Score : MonoBehaviour {
 	// Null score value set at the start of the game
 	private Vector3 playerPos = new Vector3 (0, 0, 0);
 	// Null score value set the start of the game 
-	private Vector3 startPos = new Vector3 (0, -7.28f, 0);
+	private Vector3 startPos = new Vector3 (0, 1.61f, 0);
 
 
 	//-----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -58,7 +58,7 @@ public class Score : MonoBehaviour {
 	void ScoreCount(){
 		playerPos = new Vector3 (0, player.position.y, 0);
 		startPos = new Vector3 (0, transform.position.y, 0);
-		float currentDistance =  Mathf.Round(Vector3.Distance(playerPos, startPos) * multiplier);
+		float currentDistance =  Mathf.Round(Vector3.Distance(playerPos, startPos));
 
 		if(currentDistance > distance){
 			distance = currentDistance;

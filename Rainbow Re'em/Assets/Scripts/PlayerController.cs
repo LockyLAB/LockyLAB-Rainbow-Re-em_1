@@ -37,6 +37,7 @@ public class PlayerController : MonoBehaviour {
 	public float Resistence;
 
 	public GameObject target;
+	//private float floorCounter =0;
 
 
 
@@ -83,7 +84,7 @@ public class PlayerController : MonoBehaviour {
 	//-----------------------------------------------------------------------------------------------------------------------------------------------------
 	void CheckGround(){
 		if (Physics.Raycast(origin,-transform.up, 1f, groundLayer)){
-			Debug.DrawRay(origin, -transform.up, Color.yellow);isGrounded = true;
+			isGrounded = true;
 			isFalling = false;
 
 		}else {
@@ -117,12 +118,13 @@ public class PlayerController : MonoBehaviour {
 	// Return:
 	//		void
 	//-----------------------------------------------------------------------------------------------------------------------------------------------------
-	void OnCollisionEnter (Collision other){
-		if(other.gameObject.tag == "Moving"){ 
-			rb.velocity = target.GetComponent<Rigidbody> ().velocity;
-			Debug.Log (target.GetComponent<Rigidbody> ().velocity);
-		}
-	}
+//	void OnCollisionEnter (Collision other){
+//		if(other.gameObject.tag == "Moving"){ 
+//			rb.velocity = target.GetComponent<Rigidbody> ().velocity;
+//			Debug.Log (target.GetComponent<Rigidbody> ().velocity);
+//		}
+//	}
+
 
 
 

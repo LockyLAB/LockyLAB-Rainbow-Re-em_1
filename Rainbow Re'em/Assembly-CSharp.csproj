@@ -67,6 +67,7 @@
      <Compile Include="Assets\Scripts\LiePlatform.cs" />
      <Compile Include="Assets\Scripts\MenuScore.cs" />
      <Compile Include="Assets\Scripts\OpeningMenu.cs" />
+     <Compile Include="Assets\Scripts\Platform.cs" />
      <Compile Include="Assets\Scripts\PlayerController.cs" />
      <Compile Include="Assets\Scripts\Score.cs" />
      <Compile Include="Assets\Scripts\SpringPlatform.cs" />

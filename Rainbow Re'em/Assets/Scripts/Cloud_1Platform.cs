@@ -14,10 +14,17 @@ public class Cloud_1Platform : MonoBehaviour {
 	public Color newColor = Color.red;
 	// GroundLayer is the allocation of a layer to which is independent from others
 	public LayerMask GroundLayer;
-	// isGrounded is a reference to the player either ebing on the ground or not
+	// isGrounded is a reference to the player either being on the ground or not
 	public bool isGrounded = false;
 	// mat is link to getting an objects material
 	private Material mat;
+
+
+	private float floorCounter = 0f;
+
+	public GameObject floor;
+
+
 
 
 
@@ -32,6 +39,7 @@ public class Cloud_1Platform : MonoBehaviour {
 	void Start(){
 		mat = platform.GetComponent<Renderer> ().material;
 		mat.color = startColor;
+		//CreateCollider ();
 	}
 
 
@@ -73,6 +81,20 @@ public class Cloud_1Platform : MonoBehaviour {
 
 
 
+//	void OnTriggerEnter (Collider other){
+//		if (other.tag == "Player") {
+//			//playerEntered = true;
+//			floorCounter++;
+//			if(floorCounter >= 2f){
+//				floor.gameObject.SetActive (true);
+//				isGrounded = true;
+//				Debug.Log (floorCounter >= 2f);
+//			}
+//		}
+//	}
+
+
+
 	//----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 	// Update()
 	// Called everyframe and runs DestroyObject()
@@ -81,7 +103,12 @@ public class Cloud_1Platform : MonoBehaviour {
 	//----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 	void Update(){
 			DestoryObject();
+
 	}
+
+
+
+
 
 
 
@@ -95,8 +122,16 @@ public class Cloud_1Platform : MonoBehaviour {
 	//		void
 	//----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 	void OnTriggerEnter (Collider other){
-		if (other.tag == "Player"){
-			isGrounded = true;
+		if (other.tag == "Player") {
+			floorCounter++;
+			if (floorCounter >= 2f) {
+				floor.gameObject.SetActive (true);
+				isGrounded = true;
+				Debug.Log (floorCounter >= 2f);
 			}
+		}
 	}
 }
+			
+	
+	

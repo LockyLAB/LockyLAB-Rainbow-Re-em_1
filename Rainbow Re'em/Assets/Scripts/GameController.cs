@@ -31,10 +31,14 @@ public class GameController : MonoBehaviour {
 	public float minPlatformPos = -7f; 
 	// Sets the layer platforms to interact with
 	private LayerMask groundLayer;
+
+	private LayerMask platformLayer;
+
 	// 
 	public Vector3 platformPlacement;
 	//
 	public Vector3 previousValue = Vector3.zero;
+
 
 
 	//----------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -78,6 +82,8 @@ public class GameController : MonoBehaviour {
 		Instantiate (rainbowPieceToPlace, Vector3.up * heightOfRainbowPiece * rainbowPieceCounter, Quaternion.identity);
 		rainbowPieceCounter++;
 	}
+
+
 
 
 

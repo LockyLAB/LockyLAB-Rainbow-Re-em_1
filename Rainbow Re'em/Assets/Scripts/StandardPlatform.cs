@@ -4,15 +4,20 @@ using UnityEngine;
 
 public class StandardPlatform : MonoBehaviour {
 
-	public Vector3 raycastPosLeft = new Vector3 (0f, 0f, 0f);
-	public Vector3 raycastPosRight = new Vector3 (0f, 0f, 0f);
-
 	public bool beginMove = false;
 	public bool endPosRight = false;
 	public bool endPosLeft = false;
 
+	private float floorCounter = 0f;
+
+	//private float floorCounter = 0f;
+
 	public float speed = 2;
 	public Rigidbody rb;
+	public GameObject target;
+
+
+	public GameObject floor;
 
 	public float maxAxisPos = 4.2f;
 	public float minAxisPos = -4f;
@@ -61,6 +66,19 @@ public class StandardPlatform : MonoBehaviour {
 			rb.AddForce (-transform.right * speed);
 		}
 	}
+
+
+	void OnTriggerEnter(Collider other){
+		if (other.tag == "Player") {
+			//playerEntered = true;
+			floorCounter++;
+			if(floorCounter >= 2f){
+				floor.gameObject.SetActive (true);
+				Debug.Log (floorCounter >= 2f);
+			}
+		}
+	}
+
 		
 	void FixedUpdate (){
 	

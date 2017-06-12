@@ -6,6 +6,13 @@ public class SpringPlatform : MonoBehaviour {
 	
 	// Sets the base value for the spring jump
 	public float springBoost = 20;
+	private float floorCounter = 0f;
+
+	public GameObject launch;
+
+
+
+
 
 	//----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 	// OnTriggerEnter()
@@ -17,9 +24,13 @@ public class SpringPlatform : MonoBehaviour {
 	//----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 	void OnTriggerEnter (Collider other){
 		if (other.tag == "Player"){
-			other.GetComponent<Rigidbody> ().AddForce (other.transform.up * springBoost, ForceMode.Impulse);
-
+			launch.gameObject.SetActive (true);
+			floorCounter++;
+			if (floorCounter >= 2f) {
+				other.GetComponent<Rigidbody> ().AddForce (other.transform.up * springBoost, ForceMode.Impulse);
+			}
 		}
 	}
-}		
-		
+
+}
+	
