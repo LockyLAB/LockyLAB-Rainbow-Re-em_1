@@ -7,15 +7,15 @@ public class Score : MonoBehaviour {
 	// Reference set from the score value between two values
 	public float distance;
 	// Reference for the player object
-	public Transform player;
+	public GameObject player;
 	// Reference for the text or numbers to be displayed from
 	public Text scoreOutputText; 
 	// Base value to multiply to base score
 	public float multiplier;
 	// Null score value set at the start of the game
-	private Vector3 playerPos = new Vector3 (0, 0, 0);
+	private Vector3 playerPos = new Vector3 (0f, 0f, 0f);
 	// Null score value set the start of the game 
-	private Vector3 startPos = new Vector3 (0, 1.61f, 0);
+	private Vector3 startPos = new Vector3 (0f, 0f, 0f);
 
 
 	//-----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -56,9 +56,10 @@ public class Score : MonoBehaviour {
 	// 		void
 	//-----------------------------------------------------------------------------------------------------------------------------------------------------
 	void ScoreCount(){
-		playerPos = new Vector3 (0, player.position.y, 0);
+		playerPos = new Vector3 (0, player.transform.position.y, 0);
 		startPos = new Vector3 (0, transform.position.y, 0);
 		float currentDistance =  Mathf.Round(Vector3.Distance(playerPos, startPos));
+		Debug.Log (currentDistance);
 
 		if(currentDistance > distance){
 			distance = currentDistance;
