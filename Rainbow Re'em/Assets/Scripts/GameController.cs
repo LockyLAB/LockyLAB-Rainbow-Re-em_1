@@ -40,6 +40,16 @@ public class GameController : MonoBehaviour {
 
 
 
+//	public Score score;
+//
+//
+//	public void Awake(){
+//		score = FindObjectOfType<Score> ();
+//		score.distance = 0;
+//		Debug.Log ("hey");
+//	}
+
+
 	//----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 	// Start()
 	// 		Runs once at the beginning of the game. Starts two loop statements that check for how many platforms have been built 
@@ -128,11 +138,24 @@ public class GameController : MonoBehaviour {
 	// 		void
 	//----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 	void Update () {
-		if (player.transform.position.y > playerPositionCounter){
-			playerPositionCounter += heightOfRainbowPiece;
-	
-			BuildRainbow();
-			BuildPlatforms();
+//		if (player.transform.position.y > playerPositionCounter){
+//			playerPositionCounter += heightOfRainbowPiece;
+//
+//				BuildRainbow();
+//				BuildPlatforms();
+//
+				
+		if(player!=null){
+			if (player.transform.position.y > playerPositionCounter) {
+				playerPositionCounter += heightOfRainbowPiece;
+		
+				BuildRainbow ();
+				BuildPlatforms ();
+			} else {
+				Debug.Log ("go");
+				return;
+			}
+
 		}
 	}
 }

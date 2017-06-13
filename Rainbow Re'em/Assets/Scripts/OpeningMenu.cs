@@ -8,6 +8,8 @@ using UnityEngine.SceneManagement;
 
 public class OpeningMenu : MonoBehaviour {
 
+
+
 	// ClickButton()
 	// Checks to see if button has been clicked
 	// Params:

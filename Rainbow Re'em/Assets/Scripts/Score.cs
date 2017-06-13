@@ -44,6 +44,8 @@ public class Score : MonoBehaviour {
 	void Update () {
 		if(player != null){
 			ScoreCount ();
+		} else{
+			Debug.Log ("Shit");
 		}
 	}
 
@@ -62,12 +64,13 @@ public class Score : MonoBehaviour {
 		playerPos = new Vector3 (0, player.transform.position.y, 0);
 		startPos = new Vector3 (0, transform.position.y, 0);
 		float currentDistance =  Mathf.Round(Vector3.Distance(playerPos, startPos));
-		Debug.Log (currentDistance);
 
-		if(currentDistance > distance){
+
+		if (currentDistance > distance) {
 			distance = currentDistance;
-			scoreOutputText.text = distance.ToString();
-		}
+			scoreOutputText.text = distance.ToString ();
+		} 
+			
 
 
 
