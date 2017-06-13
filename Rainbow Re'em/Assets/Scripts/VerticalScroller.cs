@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+	// This script controls the moving of the death line
+
 public class VerticalScroller : MonoBehaviour {
 	// Sets the base value for the speed of the scroller
 	public float scrollingSpeed = 1f;

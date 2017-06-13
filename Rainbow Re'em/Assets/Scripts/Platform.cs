@@ -2,25 +2,33 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+	// This script controls the behaviour for the platform script
+
 public class Platform : MonoBehaviour {
 
+
+	// Sets a reference for counter regarding collider generation
 	private float floorCounter = 0f;
-	private bool isGrounded = true;
-
-
+	// Object reference for collider activation	
 	public GameObject floor;
 
 
 
-
+	//----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	// OnTriggerEnter()
+	// 	Called once a tagged object passes through it 
+	// 	Makes the player grounded
+	// 	Begins a counter, once counter is greater than 2 will activate a collider which the player can stand on
+	// Param:
+	//		Collider other - a collider not its own
+	// Return:
+	//		void
+	//----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 	void OnTriggerEnter (Collider other){
 		if (other.tag == "Player") {
-			//playerEntered = true;
 			floorCounter++;
 			if(floorCounter >= 2f){
 				floor.gameObject.SetActive (true);
-				isGrounded = true;
-				Debug.Log (floorCounter >= 2f);
 			}
 		}
 	}

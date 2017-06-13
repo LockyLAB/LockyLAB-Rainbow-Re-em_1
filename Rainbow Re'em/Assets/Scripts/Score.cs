@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+	// This script controls the calculation of player score
+
 public class Score : MonoBehaviour {
 	// Reference set from the score value between two values
 	public float distance;
@@ -50,6 +52,7 @@ public class Score : MonoBehaviour {
 	// 	ScoreCount()
 	// 		Runs every frame and gets a value from the players starting y position and current y posiition then muliplies by a set value, rounding up
 	// 		Outputs this value on the UI 
+	//		Sets the current distance to the new distance so that the figure does not decrese
 	// Params:
 	//
 	// Return:

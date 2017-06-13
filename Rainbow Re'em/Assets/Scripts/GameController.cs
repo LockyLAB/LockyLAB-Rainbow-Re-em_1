@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+	// This script Controls the spawning of platforms	
+
 public class GameController : MonoBehaviour {
 	
 
@@ -31,12 +33,9 @@ public class GameController : MonoBehaviour {
 	public float minPlatformPos = -7f; 
 	// Sets the layer platforms to interact with
 	private LayerMask groundLayer;
-
-	private LayerMask platformLayer;
-
-	// 
+	// Sets the starting position of where each platform is to be placed
 	public Vector3 platformPlacement;
-	//
+	// Sets a reference for a previous platform placement position
 	public Vector3 previousValue = Vector3.zero;
 
 
@@ -58,9 +57,6 @@ public class GameController : MonoBehaviour {
 		for (int i = 0; i < numberOfPlatforms; i++) {
 			BuildPlatforms();
 		}
-//		for (int i = 0; i < numberOfLiePlatforms; i++) {
-//			BuildLiePlatforms();
-//		}
 	}
 
 
@@ -117,7 +113,6 @@ public class GameController : MonoBehaviour {
 			}
 
 		} while ( platformPlacement.x  >= previousValue.x - 2 && platformPlacement.x <= previousValue.x + 2);
-		//} while ( platformPlacement.x  <= previousValue.x || platformPlacement.x + 3 >= previousValue.x);
 		previousValue = platformPlacement;
 
 	}
@@ -138,7 +133,6 @@ public class GameController : MonoBehaviour {
 	
 			BuildRainbow();
 			BuildPlatforms();
-			//BuildLiePlatforms ();
 		}
 	}
 }

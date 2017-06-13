@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
+	// This script controls the collider that kils the player and initiates the death menu
 public class DeathLine : MonoBehaviour {
 
 	// OnTriggerEnter()

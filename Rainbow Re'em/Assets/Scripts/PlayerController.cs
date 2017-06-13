@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using XboxCtrlrInput;
 
+	// This script controls the player movement and feel
+	
 public class PlayerController : MonoBehaviour {
 
 
@@ -34,10 +36,9 @@ public class PlayerController : MonoBehaviour {
 	//Downforce sets the base value for drag when jumping 
 	public float downforce;
 	//Resistence sets the base value for drag when walking
-	public float Resistence;
+	public float resistence;
 
-	public GameObject target;
-	//private float floorCounter =0;
+
 
 
 
@@ -109,23 +110,6 @@ public class PlayerController : MonoBehaviour {
 
 
 
-	//-----------------------------------------------------------------------------------------------------------------------------------------------------
-	// OnCollisionEnter()
-	// 	Called when player comes into contact with anything tagged Moving
-	//	Causes the player to take control of the object with its velocity
-	// Params:
-	// Collision with any object except itself
-	// Return:
-	//		void
-	//-----------------------------------------------------------------------------------------------------------------------------------------------------
-//	void OnCollisionEnter (Collision other){
-//		if(other.gameObject.tag == "Moving"){ 
-//			rb.velocity = target.GetComponent<Rigidbody> ().velocity;
-//			Debug.Log (target.GetComponent<Rigidbody> ().velocity);
-//		}
-//	}
-
-
 
 
 	//-----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -169,7 +153,7 @@ public class PlayerController : MonoBehaviour {
 			rb.velocity += new Vector3 (0f, -weight, 0f);
 			rb.drag = downforce;
 		} else {
-			rb.drag = Resistence;
+			rb.drag = resistence;
 		}
 			
 		CheckGround ();

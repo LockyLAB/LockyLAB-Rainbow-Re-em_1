@@ -1,7 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+	
+	// This script controls the behaviour for the cloud platform
 public class Cloud_1Platform : MonoBehaviour {
 	
 	// Timer indicates how long a counter will last for
@@ -18,10 +19,9 @@ public class Cloud_1Platform : MonoBehaviour {
 	public bool isGrounded = false;
 	// mat is link to getting an objects material
 	private Material mat;
-
-
+	// Sets a reference for counter regarding collider generation
 	private float floorCounter = 0f;
-
+	// Object reference for collider activation	
 	public GameObject floor;
 
 
@@ -30,26 +30,28 @@ public class Cloud_1Platform : MonoBehaviour {
 
 	//----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 	// Start()
-	// Called at the start of the game and called once
-	// mat gets the components renderer mat.color sets the start color. 
+	// 	Called at the start of the game and called once
+	// 	mat gets the components renderer mat.color sets the start color. 
 	// Param:
+	//
 	// Return:
 	//		void
 	//----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 	void Start(){
 		mat = platform.GetComponent<Renderer> ().material;
 		mat.color = startColor;
-		//CreateCollider ();
+
 	}
 
 
 
 	//----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 	// DestroyObject() 
-	// Called every frame, checks to see if the player is grounded then starts the timer counting down.
-	// Once timer is less than 0, it will destory the objects parent.
-	// Also runs ChangeColor()
+	// 	Called every frame, checks to see if the player is grounded then starts the timer counting down.
+	// 	Once timer is less than 0, it will destory the objects parent.
+	// 	Also runs ChangeColor()
 	// Param:
+	//
 	// Return:
 	//		void
 	//----------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -67,9 +69,10 @@ public class Cloud_1Platform : MonoBehaviour {
 
 	//----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 	// ChangeColor()
-	// Called only if player is grounded, checks everyframe
-	// Changes object material once timer is below 0.5
+	// 	Called only if player is grounded, checks everyframe
+	// 	Changes object material once timer is below 0.5
 	// Param:
+	//
 	// Return:
 	//		void
 	//----------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -81,24 +84,14 @@ public class Cloud_1Platform : MonoBehaviour {
 
 
 
-//	void OnTriggerEnter (Collider other){
-//		if (other.tag == "Player") {
-//			//playerEntered = true;
-//			floorCounter++;
-//			if(floorCounter >= 2f){
-//				floor.gameObject.SetActive (true);
-//				isGrounded = true;
-//				Debug.Log (floorCounter >= 2f);
-//			}
-//		}
-//	}
 
 
 
 	//----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 	// Update()
-	// Called everyframe and runs DestroyObject()
+	// 	Called everyframe and runs DestroyObject()
 	// Param:
+	//
 	// Return
 	//----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 	void Update(){
@@ -111,11 +104,11 @@ public class Cloud_1Platform : MonoBehaviour {
 
 
 
-
 	//----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 	// OnTriggerEnter()
-	// Called once a tagged object passes through it 
-	// Makes the player grounded
+	// 	Called once a tagged object passes through it 
+	// 	Makes the player grounded
+	// 	Begins a counter, once counter is greater than 2 will activate a collider which the player can stand on
 	// Param:
 	//		Collider other - a collider not its own
 	// Return:
